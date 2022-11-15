@@ -9,3 +9,4 @@
 * Now to run it type the command "streamlit run Home.py"
 
 #### If any package is not install do it with pip or conda or google it. Sometimes streamlit will require an older version of a certain packages.
+##### 1-5.jpg are the images choosen for the employees. logist.py is the model and 2.csv is the output of another. Currently the css does not work as streamlit changes ids on every run so a "dynamic" version of the css is required.
