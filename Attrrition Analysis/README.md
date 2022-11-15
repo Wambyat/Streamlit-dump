@@ -1,4 +1,4 @@
-# This is the gui for the attrition analysis project done for software development class (UE20CS303)
+# This is the gui for the attrition analysis project done for Software Engineering (UE20CS303)
 
 ### To run it first:
 * Make a table called login (id varchar, password varchar) in your database. MySQL is the database used.
