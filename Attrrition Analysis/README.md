@@ -1,5 +1,7 @@
 # This is the gui for the attrition analysis project done for Software Engineering (UE20CS303)
 
+#### I have not done logist.py or 2.csv. Credit of that is to Allu Vineela Sravanthi, Aksshaya Ravikumar and Linson Andrew.
+
 ### To run it first:
 * Make a table called login (id varchar, password varchar) in your database. MySQL is the database used.
 * Change db_name in login to the database name which has the login table.
