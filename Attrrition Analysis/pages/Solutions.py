@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 st.set_page_config(
     page_title="Attrition Solver",
@@ -14,32 +13,27 @@ st.set_page_config(
 )
 
 # Initializing all the session_state variables
-#This is tecnically a leftover
+# This is technically a leftover
 # reused to track which solutions have been chosen
 if 'page' not in st.session_state:
-
     st.session_state['page'] = {}
 
-#This is tecnically a leftover
+# This is technically a leftover
 # Reused to track which employee is selected
 if 'inp' not in st.session_state:
-
     st.session_state['inp'] = 'default'
 
-#This is used to track if the user has logged in
+# This is used to track if the user has logged in
 if 'login' not in st.session_state:
-
     st.session_state['login'] = 'No'
 
-#This is used to track if the input is given.
+# This is used to track if the input is given.
 if 'input' not in st.session_state:
-
     st.session_state['input'] = 'No'
 
-#This is also used to track user login
-#TODO Merge this and 'login'
+# This is also used to track user login
+# TODO Merge this and 'login'
 if 'login_test' not in st.session_state:
-
     st.session_state['login_test'] = 0
 
 if 'model' not in st.session_state:
@@ -47,7 +41,6 @@ if 'model' not in st.session_state:
 
 if 'model' not in st.session_state:
     st.session_state['model'] = 'No'
-    
 
 if st.session_state['login'] == 'No':
 
@@ -64,8 +57,8 @@ else:
     dict_temp = st.session_state['page']
 
     for i in dict_temp:
-    
+
         with st.expander(str(i)):
-    
+
             for j in dict_temp[i]:
                 st.write(j)

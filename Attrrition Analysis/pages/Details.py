@@ -1,7 +1,8 @@
-import streamlit as st
-import pandas as pd
 import random
+
+import streamlit as st
 from PIL import Image
+
 st.set_page_config(
     page_title="Attrition Solver",
     page_icon="shark",
@@ -14,32 +15,27 @@ st.set_page_config(
 )
 
 # Initializing all the session_state variables
-#This is tecnically a leftover
+# This is technically a leftover
 # reused to track which solutions have been chosen
 if 'page' not in st.session_state:
-
     st.session_state['page'] = {}
 
-#This is tecnically a leftover
+# This is technically a leftover
 # Reused to track which employee is selected
 if 'inp' not in st.session_state:
-
     st.session_state['inp'] = 'default'
 
-#This is used to track if the user has logged in
+# This is used to track if the user has logged in
 if 'login' not in st.session_state:
-
     st.session_state['login'] = 'No'
 
-#This is used to track if the input is given.
+# This is used to track if the input is given.
 if 'input' not in st.session_state:
-
     st.session_state['input'] = 'No'
 
-#This is also used to track user login
-#TODO Merge this and 'login'
+# This is also used to track user login
+# TODO Merge this and 'login'
 if 'login_test' not in st.session_state:
-
     st.session_state['login_test'] = 0
 
 if 'model' not in st.session_state:
@@ -57,37 +53,38 @@ else:
 
     st.title("Name: Lorem Ipsum")
 
-    a = random.randint(1,5)
-    col1,col2 = st.columns(2)
-    mapping =  {1:["Intense Workload","Lessen the workload"],
-            2:["No clear Understanding and weak ManagerRelationship","Training Enhancement"],
-            3:["Less Projects than Usual","Urgent Couselling and Affirmation of value forEmployee to be shown"],
-            4:["Project Workload","Balancing of Projects by reducing the number of projects in accordance to the number of work hours"],
-            5:["Working for long hours","Insentives ++"],
-            6:["Recently entering the seniority zone with more projects","More Mentoring"]
-    }
+    a = random.randint(1, 5)
+    col1, col2 = st.columns(2)
+    mapping = {1: ["Intense Workload", "Lessen the workload"],
+               2: ["No clear Understanding and weak ManagerRelationship", "Training Enhancement"],
+               3: ["Less Projects than Usual", "Urgent Counselling and Affirmation of value forEmployee to be shown"],
+               4: ["Project Workload",
+                   "Balancing of Projects by reducing the number of projects in accordance to the number of work hours"],
+               5: ["Working for long hours", "Incentives ++"],
+               6: ["Recently entering the seniority zone with more projects", "More Mentoring"]
+               }
 
-    img = Image.open(str(a)+".jpg")
+    img = Image.open(str(a) + ".jpg")
     c = st.container()
-    
+
     with c:
-        
-        temp_dict=st.session_state['page']
+
+        temp_dict = st.session_state['page']
 
         with col1:
-    
+
             st.image(img)
-            
+
             df_t = st.session_state['model_res'][st.session_state['model_res']['Emp_ID'] == st.session_state['inp']]
-            
-            st.metric("Customer Satifaction" , str(int(df_t['satisfaction_level']*100))+"%")
-            st.metric("Last Evaluation" , str(int(df_t['last_evaluation']*100))+"%")
-            st.write("Number of projects: "+str(int(df_t['number_project'])))
-            st.write("Hours per month: "+str(int(df_t['average_montly_hours'])))
-            st.write("Years with your company: "+str(int(df_t['time_spend_company'])))
-            st.write("Recent promotion: "+str("Yes" if int(df_t['promotion_last_5years']) == 1 else "No"))
-            st.write("Department: "+str(int(df_t['Departments '])))
-            st.write("Salary: "+str(int(df_t['salary'])))
+
+            st.metric("Customer Satisfaction", str(int(df_t['satisfaction_level'] * 100)) + "%")
+            st.metric("Last Evaluation", str(int(df_t['last_evaluation'] * 100)) + "%")
+            st.write("Number of projects: " + str(int(df_t['number_project'])))
+            st.write("Hours per month: " + str(int(df_t['average_monthly_hours'])))
+            st.write("Years with your company: " + str(int(df_t['time_spend_company'])))
+            st.write("Recent promotion: " + str("Yes" if int(df_t['promotion_last_5years']) == 1 else "No"))
+            st.write("Department: " + str(int(df_t['Departments '])))
+            st.write("Salary: " + str(int(df_t['salary'])))
 
         with col2:
 
@@ -97,39 +94,36 @@ else:
 
                 if row["Emp_ID"] == st.session_state['inp']:
 
-                    stri="Odds: "+str(int((row['odds'])*100))+"%"
-                    st.subheader(stri)
+                    string = "Odds: " + str(int((row['odds']) * 100)) + "%"
+                    st.subheader(string)
                     st.subheader("Reasons:")
-                    lst=[]
+                    lst = []
 
                     for i in row['reason']:
-
                         lst.append(mapping[i][0])
 
                     for i in lst:
-
                         st.markdown("* " + i)
 
                     st.subheader("Solutions:")
-                    lst2=[]
+                    lst2 = []
 
                     for i in row['reason']:
-
                         lst2.append(mapping[i][1])
 
                     for i in lst2:
 
-                        a = st.checkbox(str(i),key=str(i))
+                        a = st.checkbox(str(i), key=str(i))
 
                         if a:
-                            
+
                             if row["Emp_ID"] not in temp_dict.keys():
 
-                                temp_dict[row["Emp_ID"]]=[str(i)]
-                            
+                                temp_dict[row["Emp_ID"]] = [str(i)]
+
                             else:
-                                
+
                                 if str(i) not in temp_dict[row["Emp_ID"]]:
                                     temp_dict[row["Emp_ID"]].append(str(i))
-    
+
     st.session_state['page'] = temp_dict
