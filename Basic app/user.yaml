@@ -1,0 +1,24 @@
+cookie:
+  expiry_days: 30
+  key: some_signature_key
+  name: some_cookie_name
+credentials:
+  usernames:
+    a:
+      email: a@a.com
+      failed_login_attempts: 0
+      logged_in: false
+      name: a
+      password: $2b$12$gmqyhHEuZSijVzBSgwkzMubWyXhRZ2/7ah00JDTOnIFjDYvu.TLxu
+    ab:
+      email: a@b.com
+      logged_in: false
+      name: a
+      password: $2b$12$604x6elVzet5XrC7YcCSe.KHnwPfUxW2PYK.XMNi.n7jO5iG5lilK
+    admin_user:
+      admin: true
+      email: rbriggs@gmail.com
+      failed_login_attempts: 0
+      logged_in: false
+      name: admin
+      password: $2b$12$jXTeyQJUBlCvfEv2W2mOl.Z/RemN.m/MkXCviRDNzA7pKDvwP8roS

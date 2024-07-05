@@ -1,5 +1,5 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 from logist import mega
 
 st.set_page_config(
@@ -15,32 +15,27 @@ st.set_page_config(
 )
 
 # Initializing all the session_state variables
-#This is tecnically a leftover
+# This is technically a leftover
 # reused to track which solutions have been chosen
 if 'page' not in st.session_state:
-
     st.session_state['page'] = {}
 
-#This is tecnically a leftover
+# This is technically a leftover
 # Reused to track which employee is selected
 if 'inp' not in st.session_state:
-
     st.session_state['inp'] = 'default'
 
-#This is used to track if the user has logged in
+# This is used to track if the user has logged in
 if 'login' not in st.session_state:
-
     st.session_state['login'] = 'No'
 
-#This is used to track if the input is given.
+# This is used to track if the input is given.
 if 'input' not in st.session_state:
-
     st.session_state['input'] = 'No'
 
-#This is also used to track user login
-#TODO Merge this and 'login'
+# This is also used to track user login
+# TODO Merge this and 'login'
 if 'login_test' not in st.session_state:
-
     st.session_state['login_test'] = 0
 
 if 'model' not in st.session_state:
@@ -67,9 +62,9 @@ elif st.session_state['input'] == 'No':
     if data is not None:
 
         st.subheader("This is the selected file")
-        df= pd.read_csv(data)
+        df = pd.read_csv(data)
         st.dataframe(df)
-    
+
         st.subheader("Does this data look correct?")
         col = st.columns(9)
         acc = col[0].button("Yes")
@@ -80,7 +75,7 @@ elif st.session_state['input'] == 'No':
             st.session_state['input'] = 'Yes'
             st.session_state['model_res'] = df
             st.experimental_rerun()
-        
+
         elif rej:
 
             st.session_state['input'] = 'No'
@@ -93,25 +88,21 @@ else:
     b = st.button("Click this to change data")
 
     if b:
-
         st.session_state['input'] = 'No'
         st.experimental_rerun()
 
-
     if a:
-
         data1 = pd.read_csv(r'HR_Dataset.xls')
         print("MODEL ONCE                            OMG BRO")
-        
-        #Animation options
-        #https://lottiefiles.com/82707-finish-tick-animation
-        #https://lottiefiles.com/95088-success
-        
-        with st.spinner("The model is running"):
 
+        # Animation options
+        # https://lottiefiles.com/82707-finish-tick-animation
+        # https://lottiefiles.com/95088-success
+
+        with st.spinner("The model is running"):
+            # st.balloons()
             st.session_state['model_res'] = mega(st.session_state['model_res'])
-        
+
         st.success("Model 1 has finished")
 
         st.session_state['model'] = 'Yes'
-

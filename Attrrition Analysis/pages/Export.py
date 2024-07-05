@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 from PIL import Image
 
 st.set_page_config(
@@ -15,37 +14,31 @@ st.set_page_config(
 )
 
 # Initializing all the session_state variables
-#This is tecnically a leftover
+# This is technically a leftover
 # reused to track which solutions have been chosen
 if 'page' not in st.session_state:
-
     st.session_state['page'] = {}
 
-#This is tecnically a leftover
+# This is technically a leftover
 # Reused to track which employee is selected
 if 'inp' not in st.session_state:
-
     st.session_state['inp'] = 'default'
 
-#This is used to track if the user has logged in
+# This is used to track if the user has logged in
 if 'login' not in st.session_state:
-
     st.session_state['login'] = 'No'
 
-#This is used to track if the input is given.
+# This is used to track if the input is given.
 if 'input' not in st.session_state:
-
     st.session_state['input'] = 'No'
 
-#This is also used to track user login
-#TODO Merge this and 'login'
+# This is also used to track user login
+# TODO Merge this and 'login'
 if 'login_test' not in st.session_state:
-
     st.session_state['login_test'] = 0
 
 if 'model' not in st.session_state:
     st.session_state['model'] = 'No'
-    
 
 if st.session_state['login'] == 'No':
 
@@ -59,21 +52,19 @@ else:
 
     st.title("Images you can use")
 
-    d= {"atrributes vs left":"This is a default desc","DEPARTMENTS VS LEFT":"THis is another default"}
+    d = {"attributes vs left": "This is a default desc", "DEPARTMENTS VS LEFT": "THis is another default"}
 
     temp = [str(i) for i in d.keys()]
     tabs_list = st.tabs(temp)
 
     for i in range(len(tabs_list)):
-        
-        with tabs_list[i]:
-            
 
-            img = Image.open(str(list(d.keys())[i])+".png")
-            if img.size[1]>500:
+        with tabs_list[i]:
+
+            img = Image.open(str(list(d.keys())[i]) + ".png")
+            if img.size[1] > 500:
                 x = 650 / img.size[0]
-                img = img.resize((int(img.size[0]*x),(int(img.size[1]*x))))
+                img = img.resize((int(img.size[0] * x), (int(img.size[1] * x))))
 
             st.subheader(d[str(list(d.keys())[i])])
             st.image(img)
-            

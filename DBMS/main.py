@@ -1,24 +1,22 @@
-import streamlit as st
 import mysql.connector
+import streamlit as st
 
 db_name = "proj"
-db=mysql.connector.connect(
+db = mysql.connector.connect(
 
-    host = "localhost",
-    user = "root",
-    password = "password",
-    database = db_name
+    host="localhost",
+    user="root",
+    password="password",
+    database=db_name
 
 )
-cursor=db.cursor()
+cursor = db.cursor()
 
 st.write("DBMS Proj")
 
 with st.form("SQL Input"):
-
     sql = st.text_input("SQL Statement").lower()
     submitted = st.form_submit_button("Submit")
-
 
 login_check = 0
 
@@ -28,7 +26,6 @@ if submitted:
     login_table = []
 
     for i in cursor.fetchall():
-
         st.code(i)
 
 else:

@@ -1,6 +1,5 @@
-import streamlit as st
-import pandas as pd
 import mysql.connector
+import streamlit as st
 
 st.set_page_config(
     page_title="Attrition Solver",
@@ -15,53 +14,46 @@ st.set_page_config(
 )
 
 # Initializing all the session_state variables
-#This is tecnically a leftover
+# This is technically a leftover
 # reused to track which solutions have been chosen
 if 'page' not in st.session_state:
-
     st.session_state['page'] = {}
 
-#This is tecnically a leftover
+# This is technically a leftover
 # Reused to track which employee is selected
 if 'inp' not in st.session_state:
-
     st.session_state['inp'] = 'default'
 
-#This is used to track if the user has logged in
+# This is used to track if the user has logged in
 if 'login' not in st.session_state:
-
     st.session_state['login'] = 'No'
 
-#This is used to track if the input is given.
+# This is used to track if the input is given.
 if 'input' not in st.session_state:
-
     st.session_state['input'] = 'No'
 
-#This is also used to track user login
-#TODO Merge this and 'login'
+# This is also used to track user login
+# TODO Merge this and 'login'
 if 'login_test' not in st.session_state:
-
     st.session_state['login_test'] = 0
 
 if 'model' not in st.session_state:
     st.session_state['model'] = 'No'
-    
 
 db_name = "attrition"
 
 
-def login_checker(login_table,login_id,password):
-
+def login_checker(login_table, login_id, password):
     db_name = "attrition"
-    db=mysql.connector.connect(
+    db = mysql.connector.connect(
 
-        host = "localhost",
-        user = "root",
-        password = "password",
-        database = db_name
+        host="localhost",
+        user="root",
+        password="password",
+        database=db_name
 
     )
-    cursor=db.cursor()
+    cursor = db.cursor()
 
     for i in login_table:
 
@@ -85,7 +77,7 @@ def login_checker(login_table,login_id,password):
 
     sql = "INSERT INTO login (id, password) VALUES (%s, %s)"
     val = (login_id, password)
-    cursor.execute( sql, val)
+    cursor.execute(sql, val)
 
     st.info("New login detected! Creating login ID and password.")
     db.commit()
@@ -102,7 +94,6 @@ db = mysql.connector.connect(
 
 )
 cursor = db.cursor()
-
 
 #################################
 # /**************************** #
@@ -123,10 +114,9 @@ if st.session_state['login_test'] != 1:
 
     ############################################################
     # /******************************************************* #
-    # * THIS QUERIES THE LOGIN TABLE TO CHEACK FOR PASSWORD *  #
+    # * THIS QUERIES THE LOGIN TABLE TO CHECK FOR PASSWORD *  #
     # *******************************************************/ #
     ############################################################
-
 
     if submitted:
 
@@ -136,28 +126,24 @@ if st.session_state['login_test'] != 1:
         login_table = []
 
         for i in cursor.fetchall():
-
             login_table.append(i)
 
         if login_id != '' and password != '':
-            
+
             st.session_state['login_test'] = login_checker(login_table, login_id, password)
 
         else:
 
-            print("hoyo")
-
+            print("ho yo")
 
     if st.session_state['login_test'] == 1:
 
         st.session_state['login'] = 'Yes'
-        #st.write([login_id, password])
-
+        # st.write([login_id, password])
 
     else:
         st.session_state['login'] = 'No'
         print([0, 0])
-
 
 else:
 
@@ -165,6 +151,5 @@ else:
     logout = st.button("Click this to logout")
 
     if logout:
-
         st.session_state['login_test'] = 0
         st.experimental_rerun()
